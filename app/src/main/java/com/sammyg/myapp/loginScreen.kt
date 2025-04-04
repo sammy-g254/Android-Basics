@@ -11,11 +11,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
@@ -28,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +54,7 @@ fun login() {
             text = "LOGIN",
             color = Color.Blue,
             fontSize = 60.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Spacer(modifier = Modifier.height(20.dp));
         Image(
@@ -61,13 +67,35 @@ fun login() {
         Text(
             text = "Already have an account? Enter your login credentials:",
             color = Color.Blue,
-            fontSize = 20.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {}
+            value=username,
+            onValueChange = {username=it},
+            label = {Text(text="Username")},
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start=20.dp, end = 20.dp),
+            leadingIcon = {
+                Icon(imageVector = Icons.Default.Person,
+                    contentDescription = "user icon")
+            }
+        )
+        OutlinedTextField(
+            value=password,
+            onValueChange = {password=it},
+            label = {Text(text="Password")},
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start=20.dp, end = 20.dp),
+            leadingIcon = {
+                Icon(imageVector = Icons.Default.Lock,
+                    contentDescription = "pass")
+            }
         )
         Button(
             onClick = {},
@@ -79,13 +107,20 @@ fun login() {
                 contentColor = Color.Blue
                 )
         ) {
-            Text("login")
+            Text("login",
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp
+            )
+        }
+        TextButton(onClick = {}){
+            Text("Don't have an account? Register here",
+            )
         }
     }
 }
 
 
-@Preview(showBackground = true, device = "spec:width=480px,height=800px,dpi=240")
+@Preview(showBackground = true)
 @Composable
 fun loginpreview(){
     login()
