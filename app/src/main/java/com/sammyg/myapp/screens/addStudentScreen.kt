@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
+import com.sammyg.myapp.screens.dropdownmenucomponent
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,81 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.sammyg.myapp.screens.addstudentScreen
 import kotlin.String
 
-@Composable
-fun addstudentScreen(navController: NavController){
-    Scaffold (
-        topBar = {TopBar("ADD STUDENT")},
-        bottomBar = {BottomNav(navController)}
-    ){innerpadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerpadding),
-        )
-    {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .background(Color(0xFF3FF4F6)),
-    ) {
-        Text(
-            text = "Add new student",
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineLarge
-        )
-        var fullname by remember { mutableStateOf("") }
-        var age by remember { mutableStateOf("") }
-        var selectedCourse by remember { mutableStateOf("") }
-        var selectedGender by remember { mutableStateOf("") }
-        OutlinedTextField(
-            value = fullname,
-            onValueChange = { fullname = it },
-            label = { Text("Full Name") },
-            singleLine = true,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(
-            value = age,
-            onValueChange = { age = it },
-            label = { Text("AGE") },
-            singleLine = true,
-            modifier = Modifier
-                .fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            )
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        //course dropdown menu
-        dropdownmenucomponent(
-            label = "SELECT COURSE",
-            options = listOf("FULLSTACK", "CYBERSECURITY", "DATA SCIENCE"),
-            selectedOption = selectedCourse,
-            onOptionSelected = { selectedCourse = it }
-        )
 
-        //gender dropdown menu
-        Spacer(modifier = Modifier.height(20.dp))
-        //course dropdown menu
-        dropdownmenucomponent(
-            label = "SELECT GENDER",
-            options = listOf("MALE", "FEMALE"),
-            selectedOption = selectedGender,
-            onOptionSelected = { selectedGender = it }
-        )
-        //submit button
-
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-            Text("ADD STUDENT")
-        }
-    }
-    }
-}
 
 @Composable
 fun dropdownmenucomponent(
@@ -136,7 +66,7 @@ fun dropdownmenucomponent(
                 onDismissRequest={expanded = false}
             ) {
                 options.forEach{
-                    option ->
+                        option ->
                     DropdownMenuItem(
                         text = {Text(option)},
                         onClick = {
@@ -151,7 +81,82 @@ fun dropdownmenucomponent(
     )
 }
 
-@Preview(showBackground=true)
+@Composable
+fun addstudentScreen(navController: NavController) {
+    Scaffold(
+        topBar = { TopBar("ADD STUDENT") },
+        bottomBar = { BottomNav(navController) }
+    ) { innerpadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerpadding),
+        )
+        {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .background(Color(0xFF3FF4F6)),
+            ) {
+                Text(
+                    text = "Add new student",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineLarge
+                )
+                var fullname by remember { mutableStateOf("") }
+                var age by remember { mutableStateOf("") }
+                var selectedCourse by remember { mutableStateOf("") }
+                var selectedGender by remember { mutableStateOf("") }
+                OutlinedTextField(
+                    value = fullname,
+                    onValueChange = { fullname = it },
+                    label = { Text("Full Name") },
+                    singleLine = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                OutlinedTextField(
+                    value = age,
+                    onValueChange = { age = it },
+                    label = { Text("AGE") },
+                    singleLine = true,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number
+                    )
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                //course dropdown menu
+                dropdownmenucomponent(
+                    label = "SELECT COURSE",
+                    options = listOf("FULLSTACK", "CYBERSECURITY", "DATA SCIENCE"),
+                    selectedOption = selectedCourse,
+                    onOptionSelected = { selectedCourse = it }
+                )
+
+                //gender dropdown menu
+                Spacer(modifier = Modifier.height(20.dp))
+                //course dropdown menu
+                dropdownmenucomponent(
+                    label = "SELECT GENDER",
+                    options = listOf("MALE", "FEMALE"),
+                    selectedOption = selectedGender,
+                    onOptionSelected = { selectedGender = it }
+                )
+                //submit button
+
+                Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
+                    Text("ADD STUDENT")
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
 @Composable
 fun addstudentpreview(){
     val mockNavController = rememberNavController()

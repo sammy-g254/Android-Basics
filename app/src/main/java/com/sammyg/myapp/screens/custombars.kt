@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,11 +31,11 @@ import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(title: String) {
+fun TopBar( title: String ){
     CenterAlignedTopAppBar(
         title = { Text(title) },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.Blue,
+        colors =  TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = Color.Cyan),
         modifier = Modifier
             .padding()
@@ -46,40 +47,48 @@ fun TopBar(title: String) {
             )
             .padding(16.dp)
             .shadow(8.dp)
-    )
+        )
+
+
 }
-//data class to represent each nav item
 data class BottomNavItem(
-    val route: String,
-    val label: String,
-    val icon: ImageVector
+    val route : String ,
+    val label : String ,
+    val icon : ImageVector
 )
 @Composable
-fun BottomNav(navController: NavController) {
+fun BottomNav(navController: NavController){
     val items = listOf(
         BottomNavItem("dashboard", "Dashboard", Icons.Default.Home),
         BottomNavItem("addstudent", "Add Student", Icons.Default.Add)
+
     )
     Box {
-        NavigationBar {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            currentRoute = navBackStackEntry?.destination?.route
-            items.forEach { item ->
-                NavigationBarItem(
-                    icon = { Icon(item.icon, contentDescription = item.label) },
-                    label = { Text(item.label) },
-                    selected = currentRoute == item.route,
-                    onClick = {
-                        if (currentRoute != item.route) {
-                            navController.navigate(item.route) {
-                                popUpTo(item.route)
-                                { inclusive = false }
-                                launchSingleTop = true
-                            }
+    NavigationBar(
+        contentColor = Color.LightGray
+
+    ){
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+        items.forEach {
+                item ->
+            NavigationBarItem(
+                icon = {Icon(item.icon , contentDescription = item.label)},
+                label = {Text(item.label)},
+                selected = currentRoute == item.route,
+                onClick = {
+                    if ( currentRoute != item.route)
+                    {
+                        navController.navigate(item.route)
+                        {
+                            popUpTo(item.route)
+                            { inclusive = true }
+                            launchSingleTop = true
                         }
                     }
-                )
-            }
+                }
+            )
         }
     }
+}
 }
