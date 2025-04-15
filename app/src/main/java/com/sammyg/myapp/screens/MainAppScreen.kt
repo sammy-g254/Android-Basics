@@ -1,4 +1,4 @@
-package com.sammyg.myapp
+/*package com.sammyg.myapp.screens
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -17,4 +17,4 @@ fun MainAppScreen(){
 @Composable
 fun mainpreview() {
     MainAppScreen()
-}
+}*/

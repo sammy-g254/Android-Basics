@@ -1,9 +1,7 @@
-package com.sammyg.myapp
+package com.sammyg.myapp.screens
 
 
 
-import android.R.attr.icon
-import android.R.id.icon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,16 +16,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material3.*
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun schoolDashboard(){
+fun schoolDashboard(navController: NavController){
     Column (
         modifier = Modifier
         .fillMaxSize()
@@ -111,5 +105,6 @@ fun DashboardCard(
 @Preview
 @Composable
 fun dashboardpreview(){
-    schoolDashboard()
+    val mockNavController = rememberNavController()
+    schoolDashboard(navController = mockNavController)
 }

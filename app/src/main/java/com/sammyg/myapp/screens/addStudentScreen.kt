@@ -1,9 +1,8 @@
-package com.sammyg.myapp
+package com.sammyg.myapp.screens
 
-import android.R.attr.onClick
-import android.text.Selection
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +18,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,10 +31,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import kotlin.String
 
 @Composable
-fun addstudentScreen(){
+fun addstudentScreen(navController: NavController){
+    Scaffold (
+        topBar = {TopBar("ADD STUDENT")},
+        bottomBar = {BottomNav(navController)}
+    ){innerpadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerpadding),
+        )
+    {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,9 +63,9 @@ fun addstudentScreen(){
         var selectedCourse by remember { mutableStateOf("") }
         var selectedGender by remember { mutableStateOf("") }
         OutlinedTextField(
-            value=fullname,
-            onValueChange = {fullname=it},
-            label = {Text("Full Name")},
+            value = fullname,
+            onValueChange = { fullname = it },
+            label = { Text("Full Name") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -61,8 +73,8 @@ fun addstudentScreen(){
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             value = age,
-            onValueChange = {age=it},
-            label = {Text("AGE")},
+            onValueChange = { age = it },
+            label = { Text("AGE") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth(),
@@ -74,9 +86,9 @@ fun addstudentScreen(){
         //course dropdown menu
         dropdownmenucomponent(
             label = "SELECT COURSE",
-            options = listOf("FULLSTACK","CYBERSECURITY","DATA SCIENCE"),
+            options = listOf("FULLSTACK", "CYBERSECURITY", "DATA SCIENCE"),
             selectedOption = selectedCourse,
-            onOptionSelected = {selectedCourse = it}
+            onOptionSelected = { selectedCourse = it }
         )
 
         //gender dropdown menu
@@ -84,16 +96,16 @@ fun addstudentScreen(){
         //course dropdown menu
         dropdownmenucomponent(
             label = "SELECT GENDER",
-            options = listOf("MALE","FEMALE"),
+            options = listOf("MALE", "FEMALE"),
             selectedOption = selectedGender,
-            onOptionSelected = {selectedGender = it}
+            onOptionSelected = { selectedGender = it }
         )
         //submit button
 
         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
             Text("ADD STUDENT")
         }
-
+    }
     }
 }
 
@@ -142,5 +154,6 @@ fun dropdownmenucomponent(
 @Preview(showBackground=true)
 @Composable
 fun addstudentpreview(){
-    addstudentScreen()
+    val mockNavController = rememberNavController()
+    addstudentScreen(navController = mockNavController)
 }
