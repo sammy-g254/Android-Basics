@@ -1,4 +1,4 @@
-package com.sammyg.myapp
+/*package com.sammyg.myapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -125,4 +125,4 @@ fun counterexample(){
 @Composable
 fun GreetingPreview() {
     Greeting()
-}
+}*/

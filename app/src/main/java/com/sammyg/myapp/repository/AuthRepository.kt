@@ -13,4 +13,14 @@ abstract class AuthRepository {
                 task ->onResult(task.isSuccessful)
             }
     }
+    fun login(email: String, password: String,
+              onResult:(Boolean)->Unit) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                onResult(task.isSuccessful)
+            }
+    }
+    fun logout(){
+        auth.signOut()
+    }
 }

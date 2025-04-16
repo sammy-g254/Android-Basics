@@ -38,7 +38,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.sammyg.myapp.R
 
@@ -57,6 +59,17 @@ fun register(navController: NavController,
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var confirmpassword by remember { mutableStateOf("") }
+        val isRegistered=viewModel.isregisted
+
+        LaunchedEffect(isRegistered){
+            if(isRegistered==true){
+                navController.navigate(("dashboard")){
+                    popUpTo("register")
+                    {inclusive=true}
+                }
+            }
+        }
+
         Text(
             text = "REGISTER",
             color = Color.Blue,
@@ -145,7 +158,12 @@ fun register(navController: NavController,
             }
         )
         Button(
-            onClick = {},
+            onClick = { viewModel.Register(email,password)
+                      if (password==confirmpassword) {
+                          println("Registration successful")
+                      }else{
+                      println("Registration failed: passwords do not match!")}
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -159,10 +177,15 @@ fun register(navController: NavController,
                 fontSize = 20.sp
             )
         }
-        TextButton(onClick = {}){
+        TextButton(onClick = {navController.navigate("login")}){
             Text("Already have an account? Login here",
             )
         }
+    if (isRegistered == true) {
+        Text("Registratio successful")
+    }else if(isRegistered == false){
+        Text("Registration failed, try again")
+    }
     }
 }
 
@@ -173,3 +196,5 @@ fun registerpreview(){
     val mockNavController = rememberNavController()
     register(navController = mockNavController)
 }
+
+

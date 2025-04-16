@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.sammyg.myapp.screens.addstudentScreen
+import com.sammyg.myapp.ui.theme.MyAppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -52,9 +52,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            MyAppTheme {
+                val navController = rememberNavController()
+                HomePage(navController = navController)
+                }
+            }
         }
     }
-}
+
 
 @Composable
 fun HomePage(navController: NavController) {
