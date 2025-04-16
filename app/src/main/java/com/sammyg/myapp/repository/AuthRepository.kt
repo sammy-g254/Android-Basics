@@ -1,5 +1,7 @@
 package com.sammyg.myapp.repository
+
 import com.google.firebase.auth.FirebaseAuth
+
 
 abstract class AuthRepository {
     private val auth:FirebaseAuth=FirebaseAuth.getInstance()
